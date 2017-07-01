@@ -21,5 +21,20 @@ module.exports = {
         historyApiFallback: true,//在开发单页应用时非常有用，它依赖于HTML5 history API，如果设置为true，所有的跳转将指向index.html
         inline: true, // 设置为true，当源文件改变时会自动刷新页面
         port: 8080  //设置默认监听端口，如果省略，默认为”8080“
-    }
+    },
+
+    module: {
+        //在配置文件里添加JSON loader
+        //test 一个匹配loaders所处理的文件的拓展名的正则表达式（必须）
+        //loader loader的名称（必须） 注意：：必须是全名，带-loader结尾
+        //include/exclude:手动添加必须处理的文件（文件夹）或屏蔽不需要处理的文件（文件夹）（可选）
+        //query：为loaders提供额外的设置选项（可选）
+        loaders: [
+            {
+                test: /\.json$/,
+                loader: "json-loader"
+            }
+        ]
+    },
+
 }
