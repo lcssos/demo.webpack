@@ -1,7 +1,7 @@
 {
-  "name": "test03",
+  "name": "demo.webpack",
   "version": "1.0.0",
-  "description": "",
+  "description": "npm 主配置文件",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "webpack": "^3.0.0"
+    "webpack": "^3.0.0",
+    "webpack-dev-server": "^2.5.0"
   }
 }
