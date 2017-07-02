@@ -2,12 +2,20 @@
  * Created by lcssos on 2017/7/1.
  * webpack 主配置文件
  */
+
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
     // 打包的源文件 目标文件
-    entry:  __dirname + "/app/main.js",//已多次提及的唯一入口文件
+    entry: __dirname + "/app/main.js",//已多次提及的唯一入口文件
+    // output: {
+    //     path: __dirname + "/public",//打包后的文件存放的地方
+    //     filename: "bundle.js"//打包后输出文件的文件名
+    // },
     output: {
-        path: __dirname + "/public",//打包后的文件存放的地方
-        filename: "bundle.js"//打包后输出文件的文件名
+        path: __dirname + "/public",
+        filename: '[name]-[hash].min.js',
     },
 
     //配置生成Source Maps，选择合适的选项(效率依次提高，安全依次降低)
@@ -29,12 +37,61 @@ module.exports = {
         //loader loader的名称（必须） 注意：：必须是全名，带-loader结尾
         //include/exclude:手动添加必须处理的文件（文件夹）或屏蔽不需要处理的文件（文件夹）（可选）
         //query：为loaders提供额外的设置选项（可选）
-        loaders: [
+
+        //babel
+        rules: [
             {
                 test: /\.json$/,
-                loader: "json-loader"
-            }
+                use: "json-loader"
+            },
+
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: 'babel-loader',
+                // query: {
+                //     presets: ['es2015','react']
+                // }
+                // options : {
+                //     presets: 'react'
+                // }
+            },
+
+            {
+                test: /\.(css|scss)$/,
+                loader: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader'],
+                }),
+            },
+            // {
+            //     test: /(\.css|\.scss)$/,
+            //     use: [
+            //         {
+            //             loader: ExtractTextPlugin.extract({
+            //                 fallbackLoader: 'style-loader',
+            //                 loader: loaders
+            //             })
+            //         }]
+            // }
         ]
     },
+
+
+    plugins:[
+        new ExtractTextPlugin('[name]-[hash].min.css'),
+        new HtmlWebpackPlugin({
+            template: 'index.tpl.html',
+            inject: 'body',
+            filename: 'index.html',
+        }),
+    ]
+
+    //     rules: [
+    //         {
+    //             test: /\.css$/,
+    //             use: [ 'style-loader', 'css-loader' ]
+    //         }
+    //     ]
 
 }
