@@ -36,7 +36,6 @@ module.exports = {
         //test 一个匹配loaders所处理的文件的拓展名的正则表达式（必须）
         //loader loader的名称（必须） 注意：：必须是全名，带-loader结尾
         //include/exclude:手动添加必须处理的文件（文件夹）或屏蔽不需要处理的文件（文件夹）（可选）
-        //query：为loaders提供额外的设置选项（可选）
 
         //babel
         rules: [
@@ -49,9 +48,6 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: 'babel-loader',
-                // query: {
-                //     presets: ['es2015','react']
-                // }
                 // options : {
                 //     presets: 'react'
                 // }
@@ -61,19 +57,9 @@ module.exports = {
                 test: /\.(css|scss)$/,
                 loader: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: ['css-loader'],
+                    use: ['css-loader', 'postcss-loader'],
                 }),
             },
-            // {
-            //     test: /(\.css|\.scss)$/,
-            //     use: [
-            //         {
-            //             loader: ExtractTextPlugin.extract({
-            //                 fallbackLoader: 'style-loader',
-            //                 loader: loaders
-            //             })
-            //         }]
-            // }
         ]
     },
 
