@@ -66,6 +66,8 @@ module.exports = {
 
     plugins:[
         new ExtractTextPlugin('[name]-[hash].min.css'),
+
+        //依据一个简单的模板，帮你生成最终的Html5文件，这个文件中自动引用了你打包后的JS文件。每次编译都在文件名中插入一个不同的哈希值。
         new HtmlWebpackPlugin({
             template: 'index.tpl.html',
             inject: 'body',
